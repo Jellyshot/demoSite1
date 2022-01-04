@@ -12,6 +12,12 @@
 // 연결 준비
 require '../util/dbconfig.php';
 
+// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
+require_once '../util/loginchk.php';
+
+if($chk_login){
+
+
 // 수정할 레코드의 id값을 받아온다.
 $id = $_GET['id'];
 
@@ -86,5 +92,10 @@ $hits = $row['hits'];
   </form>
   <a href="memolist.php"><button>List</button></a>
 </body>
-
+<?php 
+}else {
+  echo outmsg(LOGIN_NEED);
+  echo "<a href='../index.php'>인덱스페이지로</a>";
+}
+?>
 </html>

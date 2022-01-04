@@ -2,7 +2,7 @@
   파일명 : oo_user_detailview.php
   최초작업자 : swcodingschool
   최초작성일자 : 2021-12-28
-  업데이트일자 : 2021-12-28
+  업데이트일자 : 2022-01-04
   
   기능: 
   id를 GET방식으로 넘겨받아, 해당 id 레코드 정보를 검색,
@@ -11,6 +11,12 @@
 <?php
 // db연결 준비
 require "../util/dbconfig.php";
+
+// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
+require_once '../util/loginchk.php';
+
+if($chk_login){
+
 
 // create connection
 
@@ -59,9 +65,14 @@ require "../util/dbconfig.php";
   </div>
   <br>
   <div class="buttons">
-    <a href="memolist.php" style="font-size: 20px;">
+    <a href="boardlist.php" style="font-size: 20px;">
       <i>< Back</i></a>
   </div>
 </body>
-
+<?php 
+}else {
+  echo outmsg(LOGIN_NEED);
+  echo "<a href='../index.php'>인덱스페이지로</a>";
+}
+?>
 </html>

@@ -39,8 +39,8 @@ require_once './util/loginchk.php';
     <!-- -->
     <nav>
         <ul>
-            <li>navmenu1</li>
-            <li>navmenu1</li>
+            <li onclick="location.href='./memo/info.php'">Memo</li>
+            <li onclick="location.href='./board/boardlist.php'">Board</li>
             <li>navmenu1</li>
             <?php
             if (!$chk_login) {  // 로그인 상태가 아니라면

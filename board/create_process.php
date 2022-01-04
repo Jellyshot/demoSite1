@@ -1,11 +1,10 @@
 <?php
 
 require "../util/dbconfig.php";
-
+$id = $_POST['id'];
 $title = $_POST['title'];
 $contents = $_POST['contents'];
-//  $wrtime = $_POST['wrtime'];
-$username = 'hongildong';
+$username = $_POST['username'];
 $stmt = $conn->prepare("INSERT INTO board(title, contents, username)VALUES(?, ?, ? )");
 $stmt->bind_param("sss", $title, $contents, $username);
 $stmt->execute();

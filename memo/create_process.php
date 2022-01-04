@@ -1,6 +1,11 @@
 <?php
 
 require "../util/dbconfig.php";
+// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
+require_once '../util/loginchk.php';
+
+if($chk_login){
+
 
  $title = $_POST['title'];
  $description = $_POST['description'];
@@ -14,4 +19,9 @@ require "../util/dbconfig.php";
    $conn->close();
 
    header('Location: ./memolist.php');
+   
+  }else {
+    echo outmsg(LOGIN_NEED);
+    echo "<a href='../index.php'>인덱스페이지로</a>";
+  }
 ?>

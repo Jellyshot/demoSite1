@@ -1,43 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
+require_once '../util/loginchk.php';
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/create.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <title>Document</title>
-</head>
+if ($chk_login) {
+?>
+    <!DOCTYPE html>
+    <html lang="en">
 
-<body>
-    <header>
-        <div class="menu_icon">
-            <sapn>&#9776;</sapn>
-        </div>
-    </header>
-    <h1>New Memo</h1>
-    <form class=form action="create_process.php" method="post">
-        <div class="date">
-            <?php
-            $currdt = date("Y-m-d h:i:s");
-            echo "작성일시: " . $currdt;
-            ?>
-        </div>
-        <br>
-        <div class="contents">
-            <p><input type="text" name="title" placeholder="Title" required/></p>
-            <hr>
-            <p><textarea name="description" placeholder="Description" cols="94" rows="15" required></textarea></p>
-        </div>
-        <div class="buttons">
-            <span><input type="submit" value="Save" style="font-size: 16px;" /></span>
-            <span><input type="reset" value="Reset" style="font-size: 16px;" /></span>
-            <span><input type="button" value="List" style="font-size: 16px;" onclick="history.back(-1);" /></span>
-        </div>
-    </form>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/create.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <title>Document</title>
+    </head>
 
-</html>
+    <body>
+        <header>
+            <div class="menu_icon">
+                <sapn>&#9776;</sapn>
+            </div>
+        </header>
+        <h1>New Memo</h1>
+        <form class=form action="create_process.php" method="post">
+            <div class="date">
+                <?php
+                $currdt = date("Y-m-d h:i:s");
+                echo "작성일시: " . $currdt;
+                ?>
+            </div>
+            <br>
+            <div class="contents">
+                <p><input type="text" name="title" placeholder="Title" required /></p>
+                <hr>
+                <p><textarea name="description" placeholder="Description" cols="94" rows="15" required></textarea></p>
+            </div>
+            <div class="buttons">
+                <span><input type="submit" value="Save" style="font-size: 16px;" /></span>
+                <span><input type="reset" value="Reset" style="font-size: 16px;" /></span>
+                <span><input type="button" value="List" style="font-size: 16px;" onclick="history.back(-1);" /></span>
+            </div>
+        </form>
+    </body>
+<?php
+} else {
+    echo outmsg(LOGIN_NEED);
+    echo "<a href='../index.php'>인덱스페이지로</a>";
+}
+?>
+
+    </html>

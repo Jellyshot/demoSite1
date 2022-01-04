@@ -32,7 +32,6 @@ require "../util/dbconfig.php";
     <br>
     <div class="container">
         <?php
-        
         $sql = "SELECT * FROM board";
         $resultset = $conn->query($sql);
         
@@ -43,7 +42,6 @@ require "../util/dbconfig.php";
         //     $title = str_replace($title, mb_substr($title,0,30,"utf-8")."···", $title);
         // } 
         
-
         if ($resultset->num_rows >= 0) {
             echo "<table>
             <tr><th>ID</th><th>UserName</th><th>Title</th><th>Writing Date</th><th>Last Update</th><th>Hits</th></tr>";
@@ -53,9 +51,7 @@ require "../util/dbconfig.php";
             }
             echo "</table>";
         }
-        
         ?>
     </div>
 </body>
-
 </html>

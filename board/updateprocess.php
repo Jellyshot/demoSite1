@@ -17,16 +17,13 @@
   $id = $_POST['id'];
   $username = $_POST['username'];
   $title =  $_POST['title'];
-  $description = $_POST['description'];
+  $contents = $_POST['contents'];
   
-  // echo outmsg($title);
-  // echo outmsg($description);
   // create connection
-  
 
   // 업데이트 처리를 위한 prepared sql 구성 및 bind
-  $stmt = $conn->prepare("UPDATE notepad SET title = ?, memo = ? WHERE id = ?" );
-  $stmt->bind_param("ssi", $title, $description, $id);
+  $stmt = $conn->prepare("UPDATE board SET title = ?, contents = ? WHERE id = ?" );
+  $stmt->bind_param("ssi", $title, $contents, $id);
   $stmt->execute();
 
   // 데이터베이스 연결 인터페이스 리소스를 반납한다.

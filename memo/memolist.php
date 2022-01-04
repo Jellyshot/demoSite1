@@ -12,6 +12,12 @@
 // db연결 준비
 require "../util/dbconfig.php";
 
+// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
+require_once '../util/loginchk.php';
+
+if($chk_login){
+
+
 // create connection
 // get connection 하는 코드를 adbconfig로 이동하며... 
 // 아래 코드는 일단 코멘트 처리함. 2021-12-29 by swcodingschool
@@ -72,5 +78,10 @@ require "../util/dbconfig.php";
     ?>
   </div>
 </body>
-
+<?php 
+}else {
+  echo outmsg(LOGIN_NEED);
+  echo "<a href='../index.php'>인덱스페이지로</a>";
+}
+?>
 </html>
