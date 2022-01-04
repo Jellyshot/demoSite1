@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --white-color: #fffffb;
+    --mainGreen-color:#aed581;
+    --lightGreen-color: #e1ffb1;
+    --darkGreen-color: #7da453;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    font-family: 'Mukta', sans-serif;
+    background-image: url(/memo/img/post-it-note-gd3d171910_1920.jpg);
+}
+header{
+    width: 100%;
+    overflow: hidden;
+}
+.menu_icon{
+    float: right;
+    padding: 20px;
+    font-size: 30px;
+    color: var(--white-color);
+    cursor: pointer;
+}
+.container{
+    border: 10px double var(--white-color);
+    max-width: 800px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--white-color);
+    padding: 30px;
+}
+
+a{
+    text-decoration: none;
+}
+a > button{
+    border: 1px solid var(--white-color);
+    background-color: transparent;
+    font-size: 1em;
+    padding: 14px;
+    color: var(--white-color);
+    cursor: pointer;
+}

@@ -1,0 +1,102 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--darkGreen-color);
+}
+:root{
+    --white-color: #fffffb;
+    --mainGreen-color:#aed581;
+    --lightGreen-color: #e1ffb1;
+    --darkGreen-color: #7da453;
+}
+body{
+    width: 100%;
+}
+header{
+    width: 100%;
+    overflow: hidden;
+}
+.menu_icon{
+    float: right;
+    padding: 20px;
+    font-size: 30px;
+    color: var(--white-color);
+    cursor: pointer;
+}
+h1{
+    text-align: center;
+    padding: 14px;
+    color: var(--white-color);
+}
+.date{
+    text-align: right;
+    width: 80%;
+    color: var(--white-color);
+}
+.contents{
+    max-width: 800px;
+    margin: auto;
+    border: 3px solid var(--white-color);
+    border-radius: 5px;
+    line-height: 40px;
+}
+.section{
+    display: flex;
+    justify-content: space-between;
+}
+.contents hr{
+    color: var(--white-color);
+    background-color: var(--white-color);
+    border-color: var(--white-color);
+    height: 2px;
+}
+.contents input{
+    width: 90%;
+    border: none;
+    font-size: 1em;
+}
+.contents input:focus{
+    outline: none;
+}
+label:not(.hiddenId){
+    padding: 5px 14px;
+    color: var(--white-color);
+    width: 10%;
+}
+.buttons{
+    text-align: center;
+    padding: 14px;
+}
+input{
+    padding: 8px;
+    margin: 5px;
+    background-color: transparent;
+    color: var(--white-color);
+}
+textarea{
+    padding: 8px;
+    margin: 5px;
+    background-color: transparent;
+    color: var(--white-color);
+    border: none;
+    font-size: 1em;
+}
+textarea:focus{
+    outline: none;
+}
+.buttons input{
+    border: 2px solid var(--white-color);
+    color: var(--white-color);
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* placeholder 색상 변경하기. */
+input::placeholder {color:var(--white-color);}
+input::-webkit-input-placeholder {color:var(--white-color);}
+input:-ms-input-placeholder {color:var(--white-color);}
+ 
+textarea::placeholder {color:var(--white-color);}
+textarea::-webkit-input-placeholder {color:var(--white-color);}
+textarea:-ms-input-placeholder {color:var(--white-color);}

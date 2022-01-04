@@ -17,7 +17,7 @@ require "../util/dbconfig.php";
 
 // 기존 테이블이 있으면 삭제하고 새롭게 생성하도록 질의 구성
 // 질의 실행과 동시에 실행 결과에 따라 메시지 출력
-$sql = "DROP TABLE IF EXISTS memo";
+$sql = "DROP TABLE IF EXISTS notepad";
 if ($conn->query($sql) == TRUE) {
   if (DBG) echo outmsg(DROPTBL_SUCCESS);
 }
@@ -26,13 +26,13 @@ if ($conn->query($sql) == TRUE) {
 // 데이터베이스명과 사용자명에 더 많은 유연성을 부여하며
 // 테이블 생성시 데이터베이스 이름을 붙이는 부분을 생략함!!
 // $sql = "CREATE TABLE `toymembership`.`users` (
-  $sql = "CREATE TABLE `memo` (
-    `no` INT(8) NOT NULL AUTO_INCREMENT , 
-    `username` VARCHAR(24) NOT NULL DEFAULT 'Hong' COMMENT 'user account' , 
+  $sql = "CREATE TABLE `notepad` (
+    `id` INT(8) NOT NULL AUTO_INCREMENT , 
+    `username` VARCHAR(24) NOT NULL COMMENT 'user account' , 
     `title` VARCHAR(200) NOT NULL COMMENT 'memo title' , 
     `memo` VARCHAR(30000) NOT NULL COMMENT 'memo contents' , `wrtime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'wirte time' , 
     `uptime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'update time' ,
-    PRIMARY KEY (`no`)) 
+    PRIMARY KEY (`id`)) 
     ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'memo CRUD table';";
 
 // 위 질의를 실행하고 실행결과에 따라 성공/실패 메시지 출력
