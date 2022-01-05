@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--darkGreen-color);
+    color: var(--white-color);
+}
+:root{
+    --white-color: #fffffb;
+    --mainGreen-color:#aed581;
+    --lightGreen-color: #e1ffb1;
+    --darkGreen-color: #799e50;
+}
+body{
+    width: 100%;
+}
+header{
+    width: 100%;
+    overflow: hidden;
+}
+.menu_icon{
+    float: right;
+    padding: 20px;
+    font-size: 30px;
+    color: var(--white-color);
+    cursor: pointer;
+}
+h1{
+    text-align: center;
+    padding: 14px;
+    color: var(--white-color);
+}
+.container{
+    width: 100%;
+    /* min-height: 50vh; */
+    overflow: auto;
+}
+table{
+    border: 3px solid var(--white-color);
+    border-radius: 4px;
+    width: 80%;
+    max-width: 1000px;
+    margin: auto;
+    border-collapse: collapse;
+}
+thead{
+    border: 3px solid var(--white-color);
+    border-collapse: collapse;
+}
+
+th, td{
+    border: 1px solid var(--white-color);
+    padding: 10px;
+    text-align: center;
+    width: 16.6%;
+    border-collapse: collapse;
+}
+.c_tr{
+    height: 400px;
+    overflow: auto;
+}
+button{
+    background-color: transparent;
+    /* color: var(--mainGreen-color); */
+    padding: 10px 14px;
+    margin: 10px;
+    cursor: pointer;
+    border: 2px solid var(--white-color);
+    color: var(--white-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bolder;
+}
+.buttons{
+    text-align: center; 
+    width: 80%;
+    margin: auto;
+}
+

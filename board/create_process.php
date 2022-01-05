@@ -1,10 +1,13 @@
+
 <?php
+
 
 require "../util/dbconfig.php";
 $id = $_POST['id'];
 $title = $_POST['title'];
 $contents = $_POST['contents'];
-$username = $_POST['username'];
+// $username = $_POST['username'];
+$username = $_SESSION['username'];
 $stmt = $conn->prepare("INSERT INTO board(title, contents, username)VALUES(?, ?, ? )");
 $stmt->bind_param("sss", $title, $contents, $username);
 $stmt->execute();
@@ -13,3 +16,5 @@ $stmt->execute();
   $conn->close();
 
   header('Location: ./boardlist.php');
+
+  

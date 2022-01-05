@@ -30,7 +30,7 @@ if($chk_login){
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/detailview.css">
+  <link rel="stylesheet" href="./css/bdetailview.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -50,23 +50,38 @@ if($chk_login){
 
     $id = $_GET['id'];
 
-    $sql = "SELECT * FROM notepad WHERE id = " . $id;
+    $sql = "SELECT * FROM board WHERE id = " . $id;
     $resultset = $conn->query($sql);
 
-    if ($resultset->num_rows > 0) {
-      echo "<table><tr><th>ID</th><th>USERNAME</th><th>Title</th><th>Memo</th><th>Writing Date</th><th>Last Update</th><th>수정</th><th>삭제</th></tr>";
-
+    if ($resultset->num_rows >= 0) {
       $row = $resultset->fetch_assoc();
-      echo "<tr><td>" . $row['id'] . "</td><td>" . $row['username'] . "</td><td>" . $row['title'] . "</td><td>" . $row['memo'] . "</td><td>" . $row['wrtime'] . "</td><td>" . $row['uptime'] . "</td><td><a href='update.php?id=" . $row['id'] . "'><button>수정</button></a></td><td><a href='deleteprocess.php?id=" . $row['id'] . "'><button>삭제</button></a></td></tr>";
+      echo "<table>
+      <thead>
+      <tr>
+      <th>ID</th><td>" . $row['id'] . "</td>
+      <th>USERNAME</th><td>" . $row['username'] . "</td>
+      <th>Hits</th><td>" . $row['hits'] . "</td>
+      </tr>
+      <tr>
+      <th>Writing Date</th><td colspan=2 >" . $row['wrtime'] . "</td>
+      <th>Last Update</th><td colspan=2 >" . $row['uptime'] . "</td>
+      </tr></thead>
+      <tbody>
+      <tr>
+      <th>Title</th><td colspan=5 >" . $row['title']. "</td></tr>
+      <tr class=c_tr><th>Contents</th>
+      <td colspan=5>" . $row['contents'] . "</td></tr></tbody>";
       echo "</table>";
     }
-
     ?>
   </div>
   <br>
   <div class="buttons">
-    <a href="boardlist.php" style="font-size: 20px;">
-      <i>< Back</i></a>
+    <?php
+      echo "<a href='update.php?id=" . $row['id'] . "'><button>수정</button></a><a href='deleteprocess.php?id=" . $row['id'] . "'><button>삭제</button></a>";
+    ?>
+    <a href="/board/boardlist.php" ><button>
+      뒤로</button></a>
   </div>
 </body>
 <?php 

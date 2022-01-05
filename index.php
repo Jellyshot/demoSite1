@@ -25,55 +25,63 @@ require_once './util/loginchk.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membership Management</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
     <!-- Logo, Memga menu's, Introduction Video link, and Login Button -->
     <header>
-        <logo></logo>
-        <mgmnu></mgmnu>
+        <div class="headeritem"><img src="./img/J_logo-001.png" alt="logo.png"></div>
+        <div class="headeritem">Megamenu1</div>
+        <div class="headeritem">Megamenu2</div>
         <videos></videos>
-        <login></login>
+        <div class="loginlink"></div>
     </header>
     <!-- -->
-    <nav>
-        <ul>
-            <li onclick="location.href='./memo/info.php'">Memo</li>
-            <li onclick="location.href='./board/boardlist.php'">Board</li>
-            <li>navmenu1</li>
-            <?php
-            if (!$chk_login) {  // 로그인 상태가 아니라면
-            ?>
-                <li id='trglgnModal'>login</li>
-                <!-- login modal -->
-                <div id='lgnModal' class='modal'>
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <form action="./membership/user_loginprocess.php" method="POST" class="loginbox">
-                            <label>사용자 아이디 : </label><input type="text" name="username" placeholder="사용자 아이디를 입력해주세요." required /><br>
-                            <label>비밀번호 : </label><input type="password" name="passwd" placeholder="비밀번호를 입력해주세요." required /><br>
-                            <br>
-                            <input type="checkbox" value="yes" name="chkbox">로그인 상태 유지
-                            <input type=submit value="로그인">
-                            <a href="./membership/user_regist.php">회원가입</a>
-                        </form>
-                    </div>
-                </div>
-            <?php } else {
-                echo $_SESSION['username']; ?>
-                <button?><a href="./membership/user_logout.php">logout</a></button>
-                <?php
-            }
-                ?>
+
+    <?php
+    if (!$chk_login) {  // 로그인 상태가 아니라면
+    ?>
+        <li id='trglgnModal'>login</li>
+        <!-- 여기부터 login modal -->
+        <div id='lgnModal' class='modal'>
+            <!-- loginform in modal -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form action="./membership/user_loginprocess.php" method="POST" class="loginbox">
+                    <label for="username"><b>Username</b></label><input type="text" name="username" placeholder="Enter Username" required />
+                    <label for="passwd"><b>Password </label><input type="password" name="passwd" placeholder="Enter Password" required />
+                    <button type=submit>Login</button><br>
+                    <label>
+                        <input type="checkbox" value="yes" name="chkbox">Remember me
+                    </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="./membership/user_regist.php">회원가입</a>
+                </form>
+            </div>
+            <!-- loginform in modal 끝 -->
+        </div>
+        <!-- login modal 끝 -->
+    <?php 
+    } else {
+        echo $_SESSION['username']; ?>
+        <button?><a href="./membership/user_logout.php">logout</a></button>
+        <?php
+    }
+        ?>
         </ul>
-    </nav>
-    <!-- -->
-    <main>
-    </main>
-    <footer>
-    </footer>
-    <script src='./js/login.js'></script>
+
+        <!-- -->
+        <nav>
+            <ul>
+                <li onclick="location.href='./memo/info.php'">Memo</li>
+                <li onclick="location.href='./board/boardlist.php'">Board</li>
+                <li>Blog</li>
+        </nav>
+        <main>
+        </main>
+        <footer>
+        </footer>
+        <script src='./js/login.js'></script>
 </body>
 
 </html>

@@ -40,14 +40,14 @@ require "../util/dbconfig.php";
         // $title = "SELECT title FROM board;";
         // if(strlen($title)>30){
         //     $title = str_replace($title, mb_substr($title,0,30,"utf-8")."···", $title);
-        // } 
+        // 
         
         if ($resultset->num_rows >= 0) {
             echo "<table>
             <tr><th>ID</th><th>UserName</th><th>Title</th><th>Writing Date</th><th>Last Update</th><th>Hits</th></tr>";
             // out data of each row
             while ($row = $resultset->fetch_assoc()) {
-                echo "<tr><td>" . $row['id'] . "</td><td>" . $row['username'] . "</td><td><a href='detailview.php?id=" . $row['id'] . "'>" . mb_substr($row['title'],0,20,"utf-8") . "</a></td><td>" . $row['wrtime'] . "</td><td>" . $row['uptime'] . "</td><td>" . $row['hits'] . "</td></tr>";
+                echo "<tr><td>" . $row['id'] . "</td><td>" . $row['username'] . "</td><td><a href='detailview.php?id=" . $row['id'] . "'>" . (mb_substr($row['title'],0,20,"utf-8")) . "</a></td><td>" . $row['wrtime'] . "</td><td>" . $row['uptime'] . "</td><td>" . $row['hits'] . "</td></tr>";
             }
             echo "</table>";
         }
