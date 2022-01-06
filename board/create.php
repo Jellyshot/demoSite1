@@ -6,7 +6,7 @@ require_once '../util/loginchk.php';
 
 if ($chk_login) {
 
-    // $id = $_GET['id'];
+    // $id = $_SESSION['id'];
     // $sql = "SELECT * FROM board WHERE id = " . $id;
 
     // $result = $conn->query($sql);
@@ -40,7 +40,7 @@ if ($chk_login) {
             </div>
         </header>
         <h1>New Board</h1>
-        <form class=form action="create_process.php" method="post">
+        <form class=form action="./bcreate_process.php" method="post">
             <div class="date">
                 <?php
                 $currdt = date("Y-m-d h:i:s");
@@ -50,7 +50,7 @@ if ($chk_login) {
             <br>
             <div class="contents">
                 <input class="hiddenId" type="hidden" name="id" value="<?= $id ?>" />
-                <input type="text" name="username" value="<?= $username ?>" readonly>
+                <input type="text" name="username" value="<?='UserName : '. $_SESSION['username'] ?>" readonly>
                 <p><input type="text" name="title" placeholder="Title" required /></p>
                 <hr>
                 <p><textarea name="contents" placeholder="Contents" cols="94" rows="15" required></textarea></p>

@@ -9,8 +9,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-    background-color: var(--white-color);
-    
+    background-color: var(--white-color);   
 }
 
 header{
@@ -39,12 +38,16 @@ table{
     margin: auto;
     border-collapse: collapse;
 }
+thead{
+    border-top: 2px solid var(--darkGreen-color);
+    border-bottom: 2px solid var(--darkGreen-color);
+}
 th, td{
     border-bottom: 1px solid var(--darkGreen-color);
     padding: 10px;
     text-align: center;
+    border-collapse: collapse;
 }
-
 button{
     border: none;
     background-color: var(--darkGreen-color);
@@ -56,4 +59,34 @@ button{
     display: block;
     width: 80%;
     margin: auto;
+}
+a{
+    text-decoration: none;
+    background-color: transparent;
+    color: black;
+}
+a:visited{
+    text-decoration: none;
+}
+.pagination{
+    display: flex;
+    list-style: none;
+    justify-content: center;
+}
+.pagination li{
+    margin: 5px;
+    padding: 5px 10px;
+    color: var(--darkGreen-color);
+}
+/* .pagination a{
+    color: var(--darkGreen-color);
+} */
+.active {
+    border: none;
+    padding: 5px 10px;
+    background-color: var(--darkGreen-color);
+    
+}
+.active a{
+    color: var(--white-color);
 }
