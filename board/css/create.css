@@ -16,14 +16,44 @@ body{
 }
 header{
     width: 100%;
-    overflow: hidden;
+    height: 10vh;
+    /* background-color: var(--darkGreen-color); */
 }
-.menu_icon{
-    float: right;
+.topnav{
     padding: 20px;
-    font-size: 30px;
-    color: var(--white-color);
+    overflow: hidden;
+    background-color: transparent;
+    position: relative;
+    text-align: right;
+    display: flex;
+    justify-content: right;
+}
+.topnav a{
+    padding: 14px 20px;
+    font-size: 18px;
+    text-decoration: none;
+}
+.topnav a:hover{
     cursor: pointer;
+}
+.topnav #myLinks{
+    display: none;
+    overflow: hidden;
+    padding: 10px;
+}
+.topnav #myLinks a{
+    color: var(--white-color);
+}
+#myLinks a:hover{
+    background-color: var(--white-color);
+    color:var(--mainGreen-color);
+}
+.topnav a.icon {
+    /* display: inline-block; */
+    font-size: 30px;
+    padding: 10px;
+    color: var(--white-color);
+    
 }
 h1{
     text-align: center;

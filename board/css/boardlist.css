@@ -11,18 +11,51 @@
     font-family: 'Roboto', sans-serif;
     background-color: var(--white-color);   
 }
-
 header{
     width: 100%;
-    overflow: hidden;
+    height: 10vh;
 }
-.menu_icon{
+.topnav{
+    padding: 20px;
+    overflow: hidden;
+    background-color: transparent;
+    position: relative;
+    text-align: right;
+    display: flex;
+    justify-content: right;
+}
+.topnav a{
+    padding: 14px 20px;
+    font-size: 18px;
+}
+.topnav a:hover{
+    cursor: pointer;
+}
+.topnav #myLinks{
+    display: none;
+    overflow: hidden;
+    padding: 10px;
+}
+.topnav #myLinks a{
+    color: var(--mainGreen-color);
+}
+#myLinks a:hover{
+    background-color: var(--mainGreen-color);
+    color:var(--white-color);
+}
+.topnav a.icon {
+    /* display: inline-block; */
+    font-size: 30px;
+    padding: 10px;
+    color: var(--mainGreen-color);
+    
+}
+/* .menu_icon{
     float: right;
     padding: 20px;
     font-size: 30px;
-    color: var(--mainGreen-color);
     cursor: pointer;
-}
+} */
 h1{
     text-align: center;
     padding: 14px;

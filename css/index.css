@@ -26,6 +26,11 @@ header::after {
   margin-left: 2em;
   padding-left: 1.5em;
   padding-right: 1.5em;
+  border: 1px solid red;
+}
+
+.headeritem > img{
+  width: 180px;
 }
 
 /* 우측 상단, 로그인 링크 */

@@ -34,9 +34,19 @@ if ($chk_login) {
     </head>
 
     <body>
+        <script defer src="../js/nav.js"></script>
         <header>
-            <div class="menu_icon">
-                <sapn>&#9776;</sapn>
+            <div class="topnav">
+                <div id="myLinks">
+                <sapn><a href="../index.php">Home</a></sapn>
+                <sapn><a href="../memo/info.php">Memo</a></sapn>
+                <span><a href="./boardlist.php">Board</a></span>
+                <span><a href="">Blog</a></span>
+                <span><a href="">Account</a></span>
+                </div>
+                <div class="menu_icon">
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+                </div>
             </div>
         </header>
         <h1>New Board</h1>
@@ -50,7 +60,7 @@ if ($chk_login) {
             <br>
             <div class="contents">
                 <input class="hiddenId" type="hidden" name="id" value="<?= $id ?>" />
-                <input type="text" name="username" value="<?='UserName : '. $_SESSION['username'] ?>" readonly>
+                <input type="text" name="username" value="<?= 'UserName : ' . $_SESSION['username'] ?>" readonly>
                 <p><input type="text" name="title" placeholder="Title" required /></p>
                 <hr>
                 <p><textarea name="contents" placeholder="Contents" cols="94" rows="15" required></textarea></p>

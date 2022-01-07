@@ -29,6 +29,7 @@ require_once './util/loginchk.php';
 </head>
 
 <body>
+
     <!-- Logo, Memga menu's, Introduction Video link, and Login Button -->
     <header>
         <div class="headeritem"><img src="./img/J_logo-001.png" alt="logo.png"></div>
@@ -42,6 +43,7 @@ require_once './util/loginchk.php';
     <?php
     if (!$chk_login) {  // 로그인 상태가 아니라면
     ?>
+    <ul>
         <li id='trglgnModal'>login</li>
         <!-- 여기부터 login modal -->
         <div id='lgnModal' class='modal'>
@@ -68,14 +70,15 @@ require_once './util/loginchk.php';
         <?php
     }
         ?>
-        </ul>
+        
 
         <!-- -->
         <nav>
-            <ul>
+            
                 <li onclick="location.href='./memo/info.php'">Memo</li>
                 <li onclick="location.href='./board/boardlist.php'">Board</li>
                 <li>Blog</li>
+    </ul>
         </nav>
         <main>
         </main>

@@ -53,13 +53,13 @@ if (!empty($row['username'])) {
   // 여기까지 로그인 성공시 세션관리를 위한 추가 코드
 
   $conn->close();
-  //header('Location: user_list.php');
+  header('Location: ../index.php');
   echo "<a href='./user_userlist.php'>목록보기</a>";
 } else {
   echo outmsg(LOGIN_FAIL);
   $conn->close();
   //header('Location: index.php');
-  echo "<a href=../index.php'>index 페이지로</a>";
+  echo "<a href=/index.php>index 페이지로</a>";
 }
 
 

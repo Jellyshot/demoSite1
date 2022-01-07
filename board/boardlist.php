@@ -18,18 +18,26 @@ require "../util/dbconfig.php";
 </head>
 
 <body>
+    <script defer src="../js/nav.js"></script>
     <header>
         <div class="topnav">
-        <div class="menu_icon">
-            <sapn>&#9776;</sapn>
-        </div>
+            <div id="myLinks">
+                <sapn><a href="../index.php">Home</a></sapn>
+                <sapn><a href="../memo/info.php">Memo</a></sapn>
+                <span><a href="./boardlist.php">Board</a></span>
+                <span><a href="">Blog</a></span>
+                <span><a href="">Account</a></span>
+            </div>
+            <div class="menu_icon">
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+            </div>
         </div>
     </header>
     <h1>게시물 목록</h1>
     <br>
-    <div class="buttons">
+    <div class=" buttons">
         <a href="./create.php"><button>New</button></a>
-        <a href="./info.php"><button>Back</button></a>
+        <a href="" onclick ="history.back(-1); return false"><button>Back</button></a>
     </div>
     <br>
     <div class="container">
@@ -83,30 +91,30 @@ require "../util/dbconfig.php";
             ?>
             <li <?php if ($page_no <= 1) {
                     echo "class='disabled'";  //class=disabled는 css속성값을 주기위해 선언한 것.
-            } ?>>
-            <a <?php if ($page_no > 1) {
-                    echo "href='?page_no=$previous_page'";
-            } ?>>Previous</a>
+                } ?>>
+                <a <?php if ($page_no > 1) {
+                        echo "href='?page_no=$previous_page'";
+                    } ?>>Previous</a>
             </li>
             <?php
-            if ($total_no_of_pages <= 10){
-                for ($counter=1; $counter <=$total_no_of_pages; $counter++){
-                    if ($counter==$page_no) {
-                        echo "<li class='active'><a>$counter</a></li>" ; 
-                    }else{        /* 현재페이지는 a태크에 링크를 주지 않지만, */
-                        echo "<li><a href='?page_no=$counter'>$counter</a></li>" ; 
+            if ($total_no_of_pages <= 10) {
+                for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
+                    if ($counter == $page_no) {
+                        echo "<li class='active'><a>$counter</a></li>";
+                    } else {        /* 현재페이지는 a태크에 링크를 주지 않지만, */
+                        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
                     }             /* 현재 페이지 외의 숫자에는 이동 링크를 준다 */
                 }
-            }?><li <?php if ($page_no >= $total_no_of_pages) {
+            } ?><li <?php if ($page_no >= $total_no_of_pages) {
                             echo "class='disabled'";
-                            } ?>>
+                        } ?>>
                 <a <?php if ($page_no < $total_no_of_pages) {
                         echo "href='?page_no=$next_page'";
                     } ?>>Next</a>
-                </li>
-                <?php if ($page_no < $total_no_of_pages) {
-                    echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
-                } ?>
+            </li>
+            <?php if ($page_no < $total_no_of_pages) {
+                echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+            } ?>
         </ul>
     </div>
 </body>
