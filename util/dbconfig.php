@@ -15,8 +15,8 @@
 // 아래코드느느 다음의 의미를 가진다. 
 // substr("/currentfolername",1)  /를 제외한 currentfoldername을 얻는다.
 //=======================================================
-// $toyappname = substr(dirname($_SERVER['PHP_SELF']), 1);
-   $toyappname = 'demosite1';
+//  $toyappname = substr(dirname($_SERVER['PHP_SELF']), 1);
+    $toyappname = 'demosite1';
 //========================================================
 
 $dbservername = 'localhost'; // 개발 및 테스트 환경에서는 localhost를 전제로 한다.

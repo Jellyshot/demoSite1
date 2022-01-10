@@ -37,7 +37,8 @@ require "../util/dbconfig.php";
     <br>
     <div class=" buttons">
         <a href="./create.php"><button>New</button></a>
-        <a href="" onclick ="history.back(-1); return false"><button>Back</button></a>
+        <a href="" onclick="history.back(-1); return false"><button>Back</button></a>
+        <a href="./create100.php"><button>100개생성</button></a>
     </div>
     <br>
     <div class="container">
@@ -49,22 +50,51 @@ require "../util/dbconfig.php";
             $page_no = 1;
         }
         // pagination을 위한 변수 값 설정
-        $total_records_per_page = 10;
-        $offset = ($page_no - 1) * $total_records_per_page;
-        $previous_page = $page_no - 1;
-        $next_page = $page_no + 1;
-        // $adjacents = "2";
 
-        // 쿼리 실행
+        //한 페이지에 보여줄 리스트 개수
+        $total_records_per_page = 10;
+
+        $offset = ($page_no - 1) * $total_records_per_page;
+        $previous_page = $page_no - 10;
+        $next_page = $page_no + 10;
+
+        //한페이지에 보여줄 블락 수
+        $block = 10;
+
+        // 쿼리 실행(전체 페이지 수 계산)
         $result_count = mysqli_query(
             $conn,
             "SELECT COUNT(*) As total_records FROM `board`"
         );
-
         $total_records = mysqli_fetch_array($result_count);
+        //총 게시물수
         $total_records = $total_records['total_records'];
+        //총 페이지 수
         $total_no_of_pages = ceil($total_records / $total_records_per_page);
-        $second_last = $total_no_of_pages - 1;
+        //총 블럭수
+        $total_block = ceil($total_no_of_pages / $block);
+        //현재 블럭
+        $crtblock = ceil($page_no / $block);
+        $previous_block = $crtblock - 1;
+        $next_block = $crtblock + 1;
+        
+        $start_page = floor($page_no/$total_records_per_page)*$total_records_per_page+1;
+        //floor를 주는 이유 : 몫을 구하기 위해서.
+
+        $end_page = $start_page+($total_records_per_page - 1);
+        if($end_page > $total_no_of_pages){
+            $end_page = $total_no_of_pages;
+        }
+
+        //첫페이지 번호
+        $firstpage = (($crtblock - 1) * $total_block) + 1;
+        //마지막 페이지 번호
+        $lastpage = min($total_no_of_pages, $crtblock * $block);
+        //전 블락으로 갈때 마지막 페이지 번호
+        $previous_blockPage = $previous_block * $block;
+        //다음 블락으로 갈 때 다음블락에서의 페이지 첫 번호
+        $next_blockPage = $next_block * $block - ($block - 1);
+
 
         // board 값 테이블로 가져오기.
         $sql = "SELECT * FROM board LIMIT $offset, $total_records_per_page";
@@ -97,17 +127,26 @@ require "../util/dbconfig.php";
                     } ?>>Previous</a>
             </li>
             <?php
-            if ($total_no_of_pages <= 10) {
-                for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
-                    if ($counter == $page_no) {
-                        echo "<li class='active'><a>$counter</a></li>";
-                    } else {        /* 현재페이지는 a태크에 링크를 주지 않지만, */
-                        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-                    }             /* 현재 페이지 외의 숫자에는 이동 링크를 준다 */
-                }
-            } ?><li <?php if ($page_no >= $total_no_of_pages) {
-                            echo "class='disabled'";
-                        } ?>>
+            // if ($total_no_of_pages <= 10) {
+            //     for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
+            //         if ($counter == $page_no) {
+            //             echo "<li class='active'><a>$counter</a></li>";
+            //         } else {        /* 현재페이지는 a태크에 링크를 주지 않지만, */
+            //             echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+            //         }             /* 현재 페이지 외의 숫자에는 이동 링크를 준다 */
+            //     }
+
+            for ($counter = $start_page; $counter <= $end_page ; $counter++) { 
+                if ($counter == $page_no) {
+                    echo "<li class = 'active'><a>$counter</a></li>";
+                }else{
+                    echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+            }
+            } 
+            ?>
+            <li <?php if ($page_no >= $total_no_of_pages) {
+                        echo "class='disabled'";
+                    } ?>>
                 <a <?php if ($page_no < $total_no_of_pages) {
                         echo "href='?page_no=$next_page'";
                     } ?>>Next</a>
@@ -117,6 +156,20 @@ require "../util/dbconfig.php";
             } ?>
         </ul>
     </div>
+    <br />
+    <br />
+        <div class="search_box">
+            <form action="./bsearch_result.php" method="get">
+                <select name="s_catgo">
+                    <option value="title">Title</option>
+                    <option value="username">UserName</option>
+                    <option value="contents">Contents</option>
+                </select>
+                <input type="search" name="search" size="20" style="font-size: 30px;" required /><button >Search</button>
+        </form>
+        </div>
+    
+
 </body>
 
 </html>

@@ -123,3 +123,16 @@ a:visited{
 .active a{
     color: var(--white-color);
 }
+.search_box{
+    width: 50%;
+    margin: auto;
+}
+.search_box form{
+    display: flex;
+    justify-content: center;
+    height: 4vh;
+}
+.search_box button{
+    padding: 10px;
+}
+

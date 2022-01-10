@@ -27,16 +27,16 @@ if ($conn->query($sql) == TRUE) {
 // 테이블 생성시 데이터베이스 이름을 붙이는 부분을 생략함!!
 // $sql = "CREATE TABLE `toymembership`.`users` (
 $sql = "CREATE TABLE `users` (
-     `id` INT(6) NOT NULL AUTO_INCREMENT , 
-     `username` VARCHAR(20) UNIQUE NOT NULL COMMENT 'user account' , 
-     `passwd` VARCHAR(256) NOT NULL COMMENT 'user password' , 
-     `cellphone` VARCHAR(13) NOT NULL COMMENT 'phone number' , 
-     `email` VARCHAR(50) NOT NULL COMMENT 'mail address' , 
-     `registdate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration date' , 
-     `lastdate` DATETIME NULL COMMENT 'last login date' , 
-     `status` INT NULL DEFAULT '0' COMMENT 'activity status' , 
-     PRIMARY KEY (`id`)
-     ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'users registration table';";
+    `id` INT(6) NOT NULL AUTO_INCREMENT , 
+    `username` VARCHAR(20) UNIQUE NOT NULL COMMENT 'user account' , 
+    `passwd` VARCHAR(256) NOT NULL COMMENT 'user password' , 
+    `cellphone` VARCHAR(13) NOT NULL COMMENT 'phone number' , 
+    `email` VARCHAR(50) NOT NULL COMMENT 'mail address' , 
+    `registdate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration date' , 
+    `lastdate` DATETIME NULL COMMENT 'last login date' , 
+    `status` INT NULL DEFAULT '0' COMMENT 'activity status' , 
+    PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'users registration table';";
 
 // 위 질의를 실행하고 실행결과에 따라 성공/실패 메시지 출력
 if ($conn->query($sql) == TRUE) {

@@ -44,6 +44,8 @@ const INVALID_USER = '수정하고자 하는 사용자 계정을 한번 더 확�
 const DELETE_SUCCESS = '데이터를 성공적으로 삭제하였습니다.';
 const DELETE_FAIL = '데이터 삭제에 실패하였습니다.';
 const COMMIT_CODE = '코드를 모두 실행하였습니다.\n이전 페이지로 돌아갑니다.';
+const PWD_RESET_SUCCESS = '비밀번호 초기화에 성공했습니다.';
+const PWD_RESET_FAIL = '비밀번호 초기화에 실패했습니다.';
 
 // form validation 시 사용 메시지
 const FILL_USERNAME = '사용자 아이디를 적어주세요.';
@@ -67,29 +69,30 @@ const LOGIN_NEED = '로그인이 필요한 페이지입니다.';
 // 팝업창 형태의 알림 메시지 출력용 함수 정의
 function outmsg($msg)
 {
-  return "<script>alert('" . $msg . "')</script>";
+    return "<script>alert('" . $msg . "')</script>";
 }
 
 /* 사용자 ip를 가져오는 함수 생성
  session관리를 할 때, 가장 심플한 방법은 username을 세션으로 만들고 체크하는 것 이지만, 위험에 노출될 확률이 높아지므로 '사용자 이름', '비밀번호', '사용자의 IP', 를 하나의 변수로 만들어 이 묶음을 session으로 준다. 
  따라서 쌤이 나중이 클라이언트 ip도 session에 넣어보라고 만들어두심 */
 
- function get_client_ip() {
-  $ipaddress = '';
-  if (getenv('HTTP_CLIENT_IP'))
-      $ipaddress = getenv('HTTP_CLIENT_IP');
-  else if(getenv('HTTP_X_FORWARDED_FOR'))
-      $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-  else if(getenv('HTTP_X_FORWARDED'))
-      $ipaddress = getenv('HTTP_X_FORWARDED');
-  else if(getenv('HTTP_FORWARDED_FOR'))
-      $ipaddress = getenv('HTTP_FORWARDED_FOR');
-  else if(getenv('HTTP_FORWARDED'))
-      $ipaddress = getenv('HTTP_FORWARDED');
-  else if(getenv('REMOTE_ADDR'))
-      $ipaddress = getenv('REMOTE_ADDR');
-  else
-      $ipaddress = 'UNKNOWN';
-  return $ipaddress;
+function get_client_ip()
+{
+    $ipaddress = '';
+    if (getenv('HTTP_CLIENT_IP'))
+        $ipaddress = getenv('HTTP_CLIENT_IP');
+    else if (getenv('HTTP_X_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+    else if (getenv('HTTP_X_FORWARDED'))
+        $ipaddress = getenv('HTTP_X_FORWARDED');
+    else if (getenv('HTTP_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_FORWARDED_FOR');
+    else if (getenv('HTTP_FORWARDED'))
+        $ipaddress = getenv('HTTP_FORWARDED');
+    else if (getenv('REMOTE_ADDR'))
+        $ipaddress = getenv('REMOTE_ADDR');
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
 }
 ?>
