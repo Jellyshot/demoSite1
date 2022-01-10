@@ -53,13 +53,7 @@ require "../util/dbconfig.php";
 
         //한 페이지에 보여줄 리스트 개수
         $total_records_per_page = 10;
-
         $offset = ($page_no - 1) * $total_records_per_page;
-        $previous_page = $page_no - 10;
-        $next_page = $page_no + 10;
-
-        //한페이지에 보여줄 블락 수
-        $block = 10;
 
         // 쿼리 실행(전체 페이지 수 계산)
         $result_count = mysqli_query(
@@ -71,12 +65,8 @@ require "../util/dbconfig.php";
         $total_records = $total_records['total_records'];
         //총 페이지 수
         $total_no_of_pages = ceil($total_records / $total_records_per_page);
-        //총 블럭수
-        $total_block = ceil($total_no_of_pages / $block);
-        //현재 블럭
-        $crtblock = ceil($page_no / $block);
-        $previous_block = $crtblock - 1;
-        $next_block = $crtblock + 1;
+        $previous_page = ($page_no>10? $page_no-10 : $page_no-1);
+        $next_page = ($page_no < $total_records-10 ? $page_no+10 : $page_no+1);
         
         $start_page = floor($page_no/$total_records_per_page)*$total_records_per_page+1;
         //floor를 주는 이유 : 몫을 구하기 위해서.
@@ -86,20 +76,9 @@ require "../util/dbconfig.php";
             $end_page = $total_no_of_pages;
         }
 
-        //첫페이지 번호
-        $firstpage = (($crtblock - 1) * $total_block) + 1;
-        //마지막 페이지 번호
-        $lastpage = min($total_no_of_pages, $crtblock * $block);
-        //전 블락으로 갈때 마지막 페이지 번호
-        $previous_blockPage = $previous_block * $block;
-        //다음 블락으로 갈 때 다음블락에서의 페이지 첫 번호
-        $next_blockPage = $next_block * $block - ($block - 1);
-
-
         // board 값 테이블로 가져오기.
         $sql = "SELECT * FROM board LIMIT $offset, $total_records_per_page";
         $resultset = $conn->query($sql);
-
 
         if ($resultset->num_rows >= 0) {
             echo "<table>
@@ -147,6 +126,7 @@ require "../util/dbconfig.php";
             <li <?php if ($page_no >= $total_no_of_pages) {
                         echo "class='disabled'";
                     } ?>>
+
                 <a <?php if ($page_no < $total_no_of_pages) {
                         echo "href='?page_no=$next_page'";
                     } ?>>Next</a>
@@ -165,7 +145,7 @@ require "../util/dbconfig.php";
                     <option value="username">UserName</option>
                     <option value="contents">Contents</option>
                 </select>
-                <input type="search" name="search" size="20" style="font-size: 30px;" required /><button >Search</button>
+                <input type="search" name="search" size="40" style="font-size: 14px;" required /><button >Search</button>
         </form>
         </div>
     
