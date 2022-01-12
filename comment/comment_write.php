@@ -3,6 +3,7 @@
     require_once "../util/loginchk.php";
 
     if($chk_login){
+    $co_no=$_POST['co_no'];
     $board_id = $_POST['id'];
     $username = $_SESSION['username'];
     $co_contents = $_POST['co_contents'];
@@ -13,7 +14,8 @@
 
     if ($stmt) {
         echo outmsg(COMMENT_SUCCESS);
-    }
+        $conn->close();
+    }header('Location:../board/detailview.php?id='.$board_id);
     
     }else{
         echo outmsg(LOGIN_NEED);

@@ -108,11 +108,45 @@ if ($chk_login) {
     <br>
     <div class="buttons">
       <?php
-      echo "<a href='update.php?id=" . $row['id'] . "'><button>수정</button></a><a href='deleteprocess.php?id=" . $row['id'] . "'><button>삭제</button></a>";
+      echo "<a href='update.php?id=" . $row['id'] . "'><button>수정</button></a><
+      a href='deleteprocess.php?id=" . $row['id'] . "'><button>삭제</button></>";
       ?>
-      <a href="/board/boardlist.php"><button>
-          뒤로</button></a>
+      <a href="/board/boardlist.php"><button>뒤로</button></a>
     </div>
+    <!-- 여기부터 코멘트 Create 부분!! -->
+    <div class="commentform">
+    <form action="comment_write.php" method="POST">
+        <input type="hidden" name="board_id" value="<?= $id ?>">
+        <table>
+            <tr><th>Username</th>
+            <th><input type="text" name="username" value="<?= 'UserName : ' . $_SESSION['username'] ?>" readonly></th></tr>
+            <tr><td>Contents</td><td><input type="text" name="co_contents" placeholder="Comments..."></td></tr>
+        </table>
+        <input type="submit" value="Save">
+    </form>
+    </div>
+    <!-- 여기부터 코멘트 Read 부분! -->
+<?php
+    $stmt = "SELECT * b_comments WHERE board_id =".$id;
+    $co_result = $conn->query($stmt);
+
+    //하나만 나오면 if문을 while문으로 바꾸어보자.
+    //while($row = $co_result->fetch_assoc()){}
+    if ($co_result->num_rows > 0) {
+      $row = $co_result->fetch_assoc($co_result);
+?>
+    <div class="commentsview">
+      <table>
+      <tr><th>UserName</th><th><?= $row['username'] ?></th>
+      <td>Update Time</td><td><?= $row['co_uptime'] ?></td></tr>
+      <tr><th><?= $row['co_contents'] ?></th></tr>
+      </table>  
+      <a href="../comment/comment_update.php">수정</a>
+      <a href="../comment/co_deleteprocess.php">삭제</a>
+    </div>
+<?php   
+}
+?>
   </body>
 <?php
 }

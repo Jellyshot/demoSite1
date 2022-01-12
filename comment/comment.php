@@ -12,6 +12,7 @@
     <title>comment</title>
 </head>
 <body>
+    <div class="comment">
     <form action="comment_update.php" method="POST">
         <input type="hidden" name="board_id" value="<?= $id ?>">
         <table>
@@ -21,5 +22,6 @@
         </table>
         <input type="submit" value="Save">
     </form>
+    </div>
 </body>
 </html>
