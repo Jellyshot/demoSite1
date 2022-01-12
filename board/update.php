@@ -2,7 +2,7 @@
   파일명 : oo_user_update.php
   최초작업자 : swcodingschool
   최초작성일자 : 2021-12-29
-  업데이트일자 : 2022-01-04
+  업데이트일자 : 2022-01-12
   
   기능: 
   상세정보확인화면에서 수정을 클릭하였을 때 진행되는 코드
@@ -15,6 +15,9 @@ require '../util/dbconfig.php';
 // 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
 require_once '../util/loginchk.php';
 
+//첨부파일 경로 ^^
+$upload_path = './uploadfiles/';
+
 if ($chk_login) {
 
 
@@ -23,20 +26,28 @@ if ($chk_login) {
 
   // 해당 id로 데이터를 검색하는 질의문 구성
   $sql = "SELECT * FROM board WHERE id = " . $id;
+  
 
   // 해당 질의문 실행하여 결과 가져오기
   $result = $conn->query($sql);
 
   // 결과셋을 한 개의 행으로 처리하고,
-  // 필요로 하는 각 컬럼의 값을 얻어온다.
+  // row값이 있으면 필요로 하는 각 컬럼의 값을 얻어온다.
+if($result->num_rows>0){
   $row = $result->fetch_array();
-
+  $id = $row['id'];
   $username = $row['username'];
   $title =  $row['title'];
   $contents = $row['contents'];
   $wrtime = $row['wrtime'];
   $uptime = $row['uptime'];
   $hits = $row['hits'];
+
+  //업로드한 파일도 변수에 저장해주기
+  $uploadfiles = $row['uploadfiles'];
+  
+} //row값이 없으면 에러메세지 띄우기
+  echo outmsg(INVALID_MEMOID);
 ?>
 
   <!DOCTYPE html>
@@ -71,7 +82,7 @@ if ($chk_login) {
     </header>
     <h1>Board Update</h1>
 
-    <form action="updateprocess.php" method="POST">
+    <form action="updateprocess.php" method="POST" enctype="multipart/form-data">
       <div class="date">
         <?php
         $currdt = date("Y-m-d h:i:s");
@@ -92,19 +103,28 @@ if ($chk_login) {
         </div>
         <hr>
         <div class="contentssection">
-          <p><label for="contents">Contents</label><br>
-            <textarea name="contents" cols="94" rows="15"><?= $contents ?></textarea>
-          </p>
+          <p><label for="contents">Contents</label><br></p>
+        <!-- 이미지가 들어있는 경로와 파일명을 결합하여 src에 뿌려주는 코드를 textarea 안에 작성. -->
+      
+          <p><img style="text-align:center" src="<?=$upload_path.$uploadfiles?>" width="200px" height="auto" ></p>
+          <p><textarea name="contents" cols="94" rows="15">
+            <?= $contents ?></textarea></p>
+        <div class="upload">
+          <hr>
+          <!-- <label for="upload">attached : </label> -->
+          <input type="file" name="uploadfiles" value="<?= $uploadfiles ?>">
+        </div>
+          
         </div>
         <!-- <label>uptime</label><?= $uptime ?><br> -->
       </div>
       <div class="buttons">
         <span><input type="submit" value="Save" style="font-size: 16px;" /></span>
         <span><input type="reset" value="Reset" style="font-size: 16px;" /></span>
-        <span><input type="button" value="List" style="font-size: 16px;" onclick="history.back(-1);" /></span>
+        <span><input type="button" value="Back" style="font-size: 16px;" onclick="history.back(-1);" /></span>
       </div>
     </form>
-    <!-- <a href="memolist.php"><button>List</button></a> -->
+    
   </body>
 <?php
 } else {

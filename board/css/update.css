@@ -75,7 +75,7 @@ h1{
     display: flex;
     justify-content: space-between;
 }
-.contents hr{
+hr{
     color: var(--white-color);
     background-color: var(--white-color);
     border-color: var(--white-color);

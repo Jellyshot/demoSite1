@@ -6,18 +6,6 @@ require_once '../util/loginchk.php';
 
 if ($chk_login) {
 
-    // $id = $_SESSION['id'];
-    // $sql = "SELECT * FROM board WHERE id = " . $id;
-
-    // $result = $conn->query($sql);
-    // $row = $result->fetch_array();
-
-    // $username = $row['username'];
-    // $title =  $row['title'];
-    // $contents = $row['contents'];
-    // $wrtime = $row['wrtime'];
-    // $uptime = $row['uptime'];
-    // $hits = $row['hits'];
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -50,7 +38,8 @@ if ($chk_login) {
             </div>
         </header>
         <h1>New Board</h1>
-        <form class=form action="./bcreate_process.php" method="post">
+        <form class=form action="./bcreate_process.php" method="post" enctype="multipart/form-data">
+        <!-- enctype속성: 인코딩 타입. 모든 문자를 인코딩 하지 않음을 명시하는 속성으로, 주로 파일이나 사진을 업로드할때 사용함.  -->
             <div class="date">
                 <?php
                 $currdt = date("Y-m-d h:i:s");
@@ -64,6 +53,7 @@ if ($chk_login) {
                 <p><input type="text" name="title" placeholder="Title" required /></p>
                 <hr>
                 <p><textarea name="contents" placeholder="Contents" cols="94" rows="15" required></textarea></p>
+                <p><input type="file" name="uploadfiles"/></p>
             </div>
             <div class="buttons">
                 <span><input type="submit" value="Save" style="font-size: 16px;" /></span>

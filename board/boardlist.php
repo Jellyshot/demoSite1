@@ -79,11 +79,20 @@ require "../util/dbconfig.php";
         // board 값 테이블로 가져오기.
         $sql = "SELECT * FROM board LIMIT $offset, $total_records_per_page";
         $resultset = $conn->query($sql);
+        //조회수 코드 추가. 넘
 
         if ($resultset->num_rows >= 0) {
             echo "<table>
             <thead>
-            <tr><th>ID</th><th>UserName</th><th>Title</th><th>Writing Date</th><th>Last Update</th><th>Hits</th></tr></thead>";
+            <tr>
+            <th style=width: 10%>ID</th>
+            <th style=width: 10%>UserName</th>
+            <th style=width: 10%>Title</th>
+            <th style=width: 10%>Writing Date</th>
+            <th style=width: 10%>Last Update</th>
+            <th style=width: 10%>Hits</th>
+            </tr>
+            </thead>";
             // out data of each row
             while ($row = $resultset->fetch_assoc()) {
                 echo "<tr><td>" . $row['id'] . "</td><td>" . $row['username'] . "</td><td><a href='detailview.php?id=" . $row['id'] . "'>" . (mb_substr($row['title'], 0, 20, "utf-8")) . "</a></td><td>" . $row['wrtime'] . "</td><td>" . $row['uptime'] . "</td><td>" . $row['hits'] . "</td></tr>";

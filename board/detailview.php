@@ -14,18 +14,17 @@ require "../util/dbconfig.php";
 
 // 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
 require_once '../util/loginchk.php';
+//파일 업로드 폴더
+$upload_path = './uploadfiles/';
 
 if ($chk_login) {
 
-
   // create connection
-
   //================  여기부터 ============================================
 ?>
 
   <!DOCTYPE html>
   <html lang="en">
-
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,7 +35,6 @@ if ($chk_login) {
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <title>Document</title>
   </head>
-
   <body>
     <script defer src="../js/nav.js"></script>
     <header>
@@ -57,15 +55,37 @@ if ($chk_login) {
     <br>
     <div class="container">
       <?php
-
       $id = $_GET['id'];
-
       $sql = "SELECT * FROM board WHERE id = " . $id;
-      $resultset = $conn->query($sql);
+      // resultset을 가져오기 전에 hits를 적용시켜줘야 view화면에서도 증가된 hit값을 가져온다.
+      $hits = "UPDATE board set hits =+ 1 WHERE id=$id ";
+      $result = $conn ->query($hits);
 
+      $resultset = $conn->query($sql);
+      
       if ($resultset->num_rows >= 0) {
         $row = $resultset->fetch_assoc();
+        if (isset($row['uploadfiles'])) {
+      
         echo "<table>
+      <thead>
+      <tr>
+      <th>ID</th><td>" . $row['id'] . "</td>
+      <th>USERNAME</th><td>" . $row['username'] . "</td>
+      <th>Hits</th><td>" . $row['hits'] . "</td>
+      </tr>
+      <tr>
+      <th>Writing Date</th><td colspan=2 >" . $row['wrtime'] . "</td>
+      <th>Last Update</th><td colspan=2 >" . $row['uptime'] . "</td>
+      </tr></thead>
+      <tbody>
+      <tr>
+      <th>Title</th><td colspan=5 >" . $row['title'] . "</td></tr>
+      <tr class=c_tr><th>Contents</th>
+      <td colspan=5><p><img src='".$upload_path.$row['uploadfiles']."' alt='No Image in this Record.' width='200px' height='auto'></p><br>" . $row['contents'] . "</td></tr></tbody>";
+        echo "</table>";
+      }else {
+      echo "<table>
       <thead>
       <tr>
       <th>ID</th><td>" . $row['id'] . "</td>
@@ -95,6 +115,7 @@ if ($chk_login) {
     </div>
   </body>
 <?php
+}
 } else {
   echo outmsg(LOGIN_NEED);
   echo "<a href='../index.php'>인덱스페이지로</a>";

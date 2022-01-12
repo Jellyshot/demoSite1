@@ -26,13 +26,18 @@ require '../util/dbconfig.php';
     }else{
         $page_no = 1;
     }
+
+    // 검색용 카테고리와 키워드 get
+    $category = $_GET['s_catgo'];
+    $search = $_GET['search'];
+
     // 변수값 설정
     $total_records_per_page = 10;
     $offset = ($page_no-1) * $total_records_per_page;
     // 쿼리 실행(전체 페이지 수 계산)
     $result_count = mysqli_query(
         $conn,
-        "SELECT COUNT(*) As total_records FROM `board`"
+        "SELECT COUNT(*) As total_records FROM `board` WHERE ".$category." like '%".$search."%';"
     );
     $total_records = mysqli_fetch_array($result_count);
     //총 게시물수
@@ -68,8 +73,7 @@ require '../util/dbconfig.php';
     <br />
     <div class="board_area">
         <?php
-        $category = $_GET['s_catgo'];
-        $search = $_GET['search'];
+        
 
         $sql = "SELECT * FROM board WHERE $category like '%$search%' order by uptime desc LIMIT $offset, $total_records_per_page";
         $resultset = $conn->query($sql);
@@ -79,21 +83,23 @@ require '../util/dbconfig.php';
         if ($resultset->num_rows >= 0) {
         ?>
             <h1><?= $category ?>에서 <?= $search ?>로 검색한 결과</h1>
-            <h3 style="text-align:center;">&#91;검색된 결과 : 총 <?= $row ?> 개&#93;</h3><br>
+            <h3 style="text-align:center;">&#91;검색된 결과 : 총 <?= $total_records ?> 개&#93;</h3><br>
+            <a class="back" href="../board/boardlist.php">&#9754;리스트로 돌아가기</a>
             <table>
                 <thead>
                     <tr>
-                        <td>Title</td>
-                        <td>UserName</td>
-                        <td>Writing Date</td>
-                        <td>Last Update</td>
-                        <td>Hits</td>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 10%;">UserName</th>
+                        <th style="width: 40%;">Title</th>
+                        <th style="width: 15%;">Writing Date</th>
+                        <th style="width: 15%;">Last Update</th>
+                        <th style="width: 10%;">Hits</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     while ($row = $resultset->fetch_array()) {
-                        echo "<tr><td><a href='detailview.php?id=" . $row['id'] . "'>" . (mb_substr($row['title'], 0, 20, "utf-8")) . "</a></td><td>" . $row['username'] . "</td><td>" . $row['wrtime'] . "</td><td>" . $row['uptime'] . "</td><td>" . $row['hits'] . "</td></tr>";
+                        echo "<tr><td>" . $row['id'] . "</td><td>" . $row['username'] . "</td><td><a href='detailview.php?id=" . $row['id'] . "'>" . (mb_substr($row['title'], 0, 20, "utf-8")) . "</a></td><td>" . $row['wrtime'] . "</td><td>" . $row['uptime'] . "</td><td>" . $row['hits'] . "</td></tr>";
                     }
                     ?>
                 </tbody>
@@ -107,6 +113,7 @@ require '../util/dbconfig.php';
     <ul class="pagination">
 <?php 
     if ($page_no > 1) {
+    // 링크 확인. 검색에서 온거니까 페이지뿐만 아니라 카테고리와 서치값을 가져와야함
         echo "<li><a href='?page_no=1&s_catgo=$category&search=$search'>&lsaquo;&lsaquo; First</a></li>";
     }
 ?>

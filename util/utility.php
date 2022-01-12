@@ -46,6 +46,8 @@ const DELETE_FAIL = '데이터 삭제에 실패하였습니다.';
 const COMMIT_CODE = '코드를 모두 실행하였습니다.\n이전 페이지로 돌아갑니다.';
 const PWD_RESET_SUCCESS = '비밀번호 초기화에 성공했습니다.';
 const PWD_RESET_FAIL = '비밀번호 초기화에 실패했습니다.';
+const INVALID_MEMOID = '존재하지 않는 페이지 입니다.';
+
 
 // form validation 시 사용 메시지
 const FILL_USERNAME = '사용자 아이디를 적어주세요.';
@@ -60,11 +62,21 @@ const EXIST_USERNAME = '존재하는 아이디입니다.';
 const LOGIN_SUCCESS = '로그인에 성공하였습니다.';
 const LOGIN_FAIL = '로그인에 실패하였습니다.';
 
+// 코멘트 작성 성공 실패
+const COMMENT_SUCCESS = '댓글이 정상적으로 작성되었습니다.';
+const COMMENT_FAIL = '댓글 작성에 실패하였습니다.';
+
+//파일 이동 성공 실패
+const UPLOAD_SUCCESS = '파일이 정상적으로 업로드 되었습니다.';
+const UPLOAD_FAIL = '파일 업로드에 실패했습니다.';
+
 // SESSION 관리
 const SESSION_START = '로그인 관리를 위한 세션관리를 시작하였습니다.';
 const SESSION_CREATE = '세션 변수를 생성하였습니다.';
 const SESSION_DELETE = '로그인 관리를 종료하고 세션을 삭제하였습니다.';
 const LOGIN_NEED = '로그인이 필요한 페이지입니다.';
+
+
 
 // 팝업창 형태의 알림 메시지 출력용 함수 정의
 function outmsg($msg)

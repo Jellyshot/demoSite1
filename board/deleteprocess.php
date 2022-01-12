@@ -12,18 +12,29 @@
   require "../util/dbconfig.php";
 
   // 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
-require_once '../util/loginchk.php';
+  require_once '../util/loginchk.php';
+
+  //업로드된 파일을 삭제시켜야 하므로 기존 저장된path 설정
+  $upload_path = './uploadfiles/';
 
 if($chk_login){
-
-
   // create connection
-//   ============================================
+ // ============================================
   
   $id = $_GET['id'];
+  $sql = "SELECT * FROM board WHERE id=".$id;
+  
 
-  $sql = "DELETE FROM notepad WHERE id=".$id;
-
+  // 업로드 되어 있는 파일을 가지고 있을 때, 해당 id값에 맞는 업로드된 파일이름을 가져와 unlink로 삭제처리를 함(서버메모리를 위해서 꼭꼭 업로드된 파일 삭제 해주기.). 그 후 게시물 삭제.
+  //쿼리 실행
+  $resultset = $conn -> query($sql);
+  $row = $resultset -> fetch_assoc();
+  $existingfile = $row['uploadfiles'];
+  //첨부파일 여부 확인 후 삭제
+  if(isset($existingfile)&& $existingfile !=""){
+    unlink($upload_path.$existingfile);
+  }
+  $sql = "DELETE FROM board WHERE id=".$id;
   if($conn->query($sql) == TRUE) {
     echo outmsg(DELETE_SUCCESS);
   }else {

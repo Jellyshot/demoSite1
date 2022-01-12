@@ -135,4 +135,10 @@ a:visited{
 .search_box button{
     padding: 10px;
 }
+.back{
+    display: block;
+    width: 80%;
+    margin: auto;   
+    padding: 14px;
+}
 
