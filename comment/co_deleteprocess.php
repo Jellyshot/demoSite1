@@ -4,10 +4,13 @@
 
     if($chk_login){
         // id값을 못물어오면 board_id로 해보장.
-        $id = $_GET['id'];
+        $id = $_GET['board_id'];
         $co_no = $_GET['co_no'];
-        $sql = "DELETE FROM b_comments WHERE co_no=".$co_no;
         
+
+        $sql = "DELETE FROM b_comment WHERE co_no=".$co_no;
+        
+
         if ($conn->query($sql) ==TRUE) {
             echo outmsg(DELETE_SUCCESS);
         }else{

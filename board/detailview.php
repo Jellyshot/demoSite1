@@ -25,6 +25,7 @@ if ($chk_login) {
 
   <!DOCTYPE html>
   <html lang="en">
+
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,6 +36,7 @@ if ($chk_login) {
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <title>Document</title>
   </head>
+
   <body>
     <script defer src="../js/nav.js"></script>
     <header>
@@ -58,34 +60,33 @@ if ($chk_login) {
       $id = $_GET['id'];
       $sql = "SELECT * FROM board WHERE id = " . $id;
       // resultset을 가져오기 전에 hits를 적용시켜줘야 view화면에서도 증가된 hit값을 가져온다.
-      $hits = "UPDATE board set hits =+ 1 WHERE id=$id ";
-      $result = $conn ->query($hits);
+      $hits = "UPDATE board set hits = hits + 1 WHERE id=$id ";
+      $result = $conn->query($hits);
 
       $resultset = $conn->query($sql);
-      
+
       if ($resultset->num_rows >= 0) {
         $row = $resultset->fetch_assoc();
-        if (isset($row['uploadfiles'])) {
-      
-        echo "<table>
-      <thead>
-      <tr>
-      <th>ID</th><td>" . $row['id'] . "</td>
-      <th>USERNAME</th><td>" . $row['username'] . "</td>
-      <th>Hits</th><td>" . $row['hits'] . "</td>
-      </tr>
-      <tr>
-      <th>Writing Date</th><td colspan=2 >" . $row['wrtime'] . "</td>
-      <th>Last Update</th><td colspan=2 >" . $row['uptime'] . "</td>
-      </tr></thead>
-      <tbody>
-      <tr>
-      <th>Title</th><td colspan=5 >" . $row['title'] . "</td></tr>
-      <tr class=c_tr><th>Contents</th>
-      <td colspan=5><p><img src='".$upload_path.$row['uploadfiles']."' alt='No Image in this Record.' width='200px' height='auto'></p><br>" . $row['contents'] . "</td></tr></tbody>";
-        echo "</table>";
-      }else {
-      echo "<table>
+        if (isset($row['uploadfiles']) && ($row['uploadfiles'] != "") ) {
+          echo "<table>
+        <thead>
+        <tr>
+        <th>ID</th><td>" . $row['id'] . "</td>
+        <th>USERNAME</th><td>" . $row['username'] . "</td>
+        <th>Hits</th><td>" . $row['hits'] . "</td>
+        </tr>
+        <tr>
+        <th>Writing Date</th><td colspan=2 >" . $row['wrtime'] . "</td>
+        <th>Last Update</th><td colspan=2 >" . $row['uptime'] . "</td>
+        </tr></thead>
+        <tbody>
+        <tr>
+        <th>Title</th><td colspan=5 >" . $row['title'] . "</td></tr>
+        <tr class=c_tr><th>Contents</th>
+        <td colspan=5><p><img src='" . $upload_path . $row['uploadfiles'] . "' alt='No Image in this Record.' width='200px' height='auto'></p><br>" . $row['contents'] . "</td></tr></tbody>";
+          echo "</table>";
+        } else {
+          echo "<table>
       <thead>
       <tr>
       <th>ID</th><td>" . $row['id'] . "</td>
@@ -101,59 +102,98 @@ if ($chk_login) {
       <th>Title</th><td colspan=5 >" . $row['title'] . "</td></tr>
       <tr class=c_tr><th>Contents</th>
       <td colspan=5>" . $row['contents'] . "</td></tr></tbody>";
-        echo "</table>";
-      }
+          echo "</table>";
+        }
       ?>
     </div>
     <br>
-    <div class="buttons">
+<?php
+    if ($_SESSION['username']==$row['username']) {
+?>
+      <div class="buttons">
       <?php
-      echo "<a href='update.php?id=" . $row['id'] . "'><button>수정</button></a><
-      a href='deleteprocess.php?id=" . $row['id'] . "'><button>삭제</button></>";
+        echo "<a href='update.php?id=" . $row['id'] . "'><button>수정</button></a>
+      <a href='deleteprocess.php?id=" . $row['id'] . "'><button>삭제</button></a>";
       ?>
       <a href="/board/boardlist.php"><button>뒤로</button></a>
+      <br>
+      <br>
     </div>
-    <!-- 여기부터 코멘트 Create 부분!! -->
-    <div class="commentform">
-    <form action="comment_write.php" method="POST">
-        <input type="hidden" name="board_id" value="<?= $id ?>">
-        <table>
-            <tr><th>Username</th>
-            <th><input type="text" name="username" value="<?= 'UserName : ' . $_SESSION['username'] ?>" readonly></th></tr>
-            <tr><td>Contents</td><td><input type="text" name="co_contents" placeholder="Comments..."></td></tr>
-        </table>
-        <input type="submit" value="Save">
-    </form>
-    </div>
-    <!-- 여기부터 코멘트 Read 부분! -->
 <?php
-    $stmt = "SELECT * b_comments WHERE board_id =".$id;
-    $co_result = $conn->query($stmt);
-
-    //하나만 나오면 if문을 while문으로 바꾸어보자.
-    //while($row = $co_result->fetch_assoc()){}
-    if ($co_result->num_rows > 0) {
-      $row = $co_result->fetch_assoc($co_result);
+    }
 ?>
-    <div class="commentsview">
-      <table>
-      <tr><th>UserName</th><th><?= $row['username'] ?></th>
-      <td>Update Time</td><td><?= $row['co_uptime'] ?></td></tr>
-      <tr><th><?= $row['co_contents'] ?></th></tr>
-      </table>  
-      <a href="../comment/comment_update.php">수정</a>
-      <a href="../comment/co_deleteprocess.php">삭제</a>
+    <!-- 여기부터 코멘트 Create form부분!! -->
+    <div class="commentform">
+      <form action="../comment/comment_write.php" method="POST">
+        <input type="hidden" name="board_id" value="<?= $id ?>">
+        <input type="hidden" name="username" value="<?= $_SESSION['username'] ?>">
+        <label for="co_contents" style="padding: 14px;">Comments</label>
+        <input type="text" name="co_contents" style="width: 50%;">
+        <input type="submit" value="Save" style="padding: 5px 10px;">
+      </form>
     </div>
-<?php   
-}
+    <br>
+    <br>
+    <!-- 여기부터 코멘트 Read 부분! -->
+    <?php
+    // 보드의 id값과 일치하는 코멘트 불러오기
+        $stmt = "SELECT * FROM b_comment WHERE board_id =" . $id;
+        $co_result = $conn->query($stmt);
+    //  댓글수 카운트를 위한 쿼리
+        $stmt2 = mysqli_query(
+          $conn, "SELECT COUNT(*) AS co_records FROM b_comment WHERE board_id=".$id );
+        $co_records = mysqli_fetch_array($stmt2);
+        $co_records = $co_records['co_records'];
+    ?>
+
+
+<div cla
+ss="commentsview">
+      <p>전체 댓글 수 &#91;<?= $co_records ?>&#93;</p>
+      <ul>
+    <?php
+      //결과값이 한개 이상일때는 while문을 쓰자.
+        // if($co_result->num_rows >= 0) {
+        while ($row = $co_result->fetch_assoc()) {
+          // $row = $co_result->fetch_assoc($co_result);
+    ?>
+          <li>
+            <div class="c_box" style="padding: 5px;">
+              <div class="c_info">  
+                <input type="hidden" name="board_id" value="board_id">
+                <input type="hidden" name="co_no" value="co_no">
+                <?= $row['username'] ?>
+                <?= $row['co_uptime'] ?>
+              </div>
+              <div class="c_text">
+                <?= $row['co_contents'] ?>
+              </div>
+            </div>
+<?php       
+          if ($_SESSION['username']==$row['username']) {
 ?>
+            <div class="c_buttons">
+              <a href="../comment/comment_update.php?co_no=<?=$row['co_no']?>&board_id=<?=$id?>">수정</a>
+              <a href="../comment/co_deleteprocess.php?co_no=<?=$row['co_no']?>&board_id=<?=$id?>">삭제</a>
+            </div>
+<?php
+          }
+?>
+            
+          </li>
+        <?php
+}
+        ?>
+        </ul>
+      </div>
+      <br>
   </body>
 <?php
-}
-} else {
-  echo outmsg(LOGIN_NEED);
-  echo "<a href='../index.php'>인덱스페이지로</a>";
-}
+      }
+    } else {
+      echo outmsg(LOGIN_NEED);
+      echo "<a href='../index.php'>인덱스페이지로</a>";
+    }
 ?>
 
   </html>

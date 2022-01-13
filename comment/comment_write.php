@@ -3,12 +3,11 @@
     require_once "../util/loginchk.php";
 
     if($chk_login){
-    $co_no=$_POST['co_no'];
-    $board_id = $_POST['id'];
+    $board_id = $_POST['board_id'];
     $username = $_SESSION['username'];
     $co_contents = $_POST['co_contents'];
 
-    $stmt = $conn->prepare("INSERT INTO b_comment(board_id, username, co_contents) VALUE (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO b_comment(board_id, username, co_contents) VALUE (?, ?, ?)");
     $stmt -> bind_param("iss", $board_id, $username, $co_contents);
     $stmt->execute();
 

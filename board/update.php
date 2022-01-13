@@ -46,8 +46,8 @@ if($result->num_rows>0){
   //업로드한 파일도 변수에 저장해주기
   $uploadfiles = $row['uploadfiles'];
   
-} //row값이 없으면 에러메세지 띄우기
-  echo outmsg(INVALID_MEMOID);
+} 
+// echo outmsg(INVALID_MEMOID);
 ?>
 
   <!DOCTYPE html>
@@ -82,7 +82,7 @@ if($result->num_rows>0){
     </header>
     <h1>Board Update</h1>
 
-    <form action="updateprocess.php" method="POST" enctype="multipart/form-data">
+    <form action="./updateprocess.php" method="POST" enctype="multipart/form-data">
       <div class="date">
         <?php
         $currdt = date("Y-m-d h:i:s");

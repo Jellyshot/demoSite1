@@ -106,4 +106,26 @@ button{
     width: 80%;
     margin: auto;
 }
-
+/* 코멘트*/
+.commentform{
+    width: 100%;
+    margin: auto;
+}
+.commentform form{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+.commentsview{
+    width: 80%;
+    margin: auto;
+    max-width: 1000px;
+    border-radius: 4px;
+    border-collapse: collapse;
+}
+.c_box{
+    border-top: 1px solid var(--white-color);
+    border-bottom: 1px solid var(--white-color);
+    border-collapse: collapse;
+}
