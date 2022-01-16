@@ -67,7 +67,7 @@ if ($chk_login) {
 
       if ($resultset->num_rows >= 0) {
         $row = $resultset->fetch_assoc();
-        if (isset($row['uploadfiles']) && ($row['uploadfiles'] != "") ) {
+        if (isset($row['uploadfiles']) && ($row['uploadfiles'] != "")) {
           echo "<table>
         <thead>
         <tr>
@@ -107,21 +107,21 @@ if ($chk_login) {
       ?>
     </div>
     <br>
-<?php
-    if ($_SESSION['username']==$row['username']) {
-?>
+    <?php
+        if ($_SESSION['username'] == $row['username']) {
+    ?>
       <div class="buttons">
-      <?php
-        echo "<a href='update.php?id=" . $row['id'] . "'><button>수정</button></a>
+        <?php
+          echo "<a href='update.php?id=" . $row['id'] . "'><button>수정</button></a>
       <a href='deleteprocess.php?id=" . $row['id'] . "'><button>삭제</button></a>";
-      ?>
-      <a href="/board/boardlist.php"><button>뒤로</button></a>
-      <br>
-      <br>
-    </div>
-<?php
-    }
-?>
+        ?>
+        <a href="/board/boardlist.php"><button>뒤로</button></a>
+        <br>
+        <br>
+      </div>
+    <?php
+        }
+    ?>
     <!-- 여기부터 코멘트 Create form부분!! -->
     <div class="commentform">
       <form action="../comment/comment_write.php" method="POST">
@@ -134,34 +134,36 @@ if ($chk_login) {
     </div>
     <br>
     <br>
+
     <!-- 여기부터 코멘트 Read 부분! -->
     <?php
-    // 보드의 id값과 일치하는 코멘트 불러오기
+        // 보드의 id값과 일치하는 코멘트 불러오기
         $stmt = "SELECT * FROM b_comment WHERE board_id =" . $id;
         $co_result = $conn->query($stmt);
-    //  댓글수 카운트를 위한 쿼리
+        //  댓글수 카운트를 위한 쿼리
         $stmt2 = mysqli_query(
-          $conn, "SELECT COUNT(*) AS co_records FROM b_comment WHERE board_id=".$id );
+          $conn,
+          "SELECT COUNT(*) AS co_records FROM b_comment WHERE board_id=" . $id
+        );
         $co_records = mysqli_fetch_array($stmt2);
         $co_records = $co_records['co_records'];
     ?>
 
-
-<div cla
-ss="commentsview">
+    <div class="commentsview">
       <p>전체 댓글 수 &#91;<?= $co_records ?>&#93;</p>
       <ul>
-    <?php
-      //결과값이 한개 이상일때는 while문을 쓰자.
-        // if($co_result->num_rows >= 0) {
+        <?php
+        //결과값이 한개 이상일때는 while문을 쓰자.
         while ($row = $co_result->fetch_assoc()) {
           // $row = $co_result->fetch_assoc($co_result);
-    ?>
-          <li>
+          // 코멘트의 display box와 none박스를 구별시키기 위해, 또 id 하나당 function 1개 지정을 위해 코멘트의 no값을 불러옴
+          $co_no = $row['co_no'];
+        ?>
+          <li class="c_display" id="c_d_display<?=$co_no?>">
             <div class="c_box" style="padding: 5px;">
-              <div class="c_info">  
-                <input type="hidden" name="board_id" value="board_id">
-                <input type="hidden" name="co_no" value="co_no">
+              <div class="c_info">
+                <input type="hidden" name="board_id" value="<?=$id?>">
+                <input type="hidden" name="co_no" value="<?=$co_no?>">
                 <?= $row['username'] ?>
                 <?= $row['co_uptime'] ?>
               </div>
@@ -169,24 +171,39 @@ ss="commentsview">
                 <?= $row['co_contents'] ?>
               </div>
             </div>
-<?php       
-          if ($_SESSION['username']==$row['username']) {
-?>
-            <div class="c_buttons">
-              <a href="../comment/comment_update.php?co_no=<?=$row['co_no']?>&board_id=<?=$id?>">수정</a>
-              <a href="../comment/co_deleteprocess.php?co_no=<?=$row['co_no']?>&board_id=<?=$id?>">삭제</a>
-            </div>
-<?php
-          }
-?>
-            
+
+      <!-- 작성자와 로그인한 username값이 같을때 수정, 삭제버튼 활성화 -->
+            <?php
+            if ($_SESSION['username'] == $row['username']) {
+            ?>
+              <div class="c_buttons">
+                <a onclick="co_function(<?=$co_no?>)">수정</a>
+                <a href="../comment/co_deleteprocess.php?co_no=<?= $row['co_no'] ?>&board_id=<?= $id ?>">삭제</a>
+              </div>
+            <?php
+            }
+            ?>
+
+          </li>
+
+          <li class="c_update" id="c_d_hide<?=$co_no?>">
+            <form action="../comment/comment_update.php">
+            <input type="hidden" name="board_id" value="<?= $id ?>">
+            <input type="hidden" name="co_no" value="<?= $co_no ?>">
+            <input type="text" name="username" value="<?=$username?>">
+            <input type="text" name="co_contents" value="<?=$row['co_contents']?>">
+            <input type="submit" value="Save">
+            <input type="button" value="Cancle" onclick="co_function(<?=$co_no?>)">
+
+
+            </form>
           </li>
         <?php
-}
+      } 
         ?>
-        </ul>
-      </div>
-      <br>
+      </ul>
+    </div>
+    <br>
   </body>
 <?php
       }
