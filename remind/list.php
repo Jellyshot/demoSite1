@@ -43,10 +43,15 @@
             $total_no_of_pages = ceil($total_records/$records_per_page);
 
         //페이지네이션에 들어갈 페이지 갯수
-        $pagination_range = 10;
+        $pagination_range = 5;
 
         //페이지네이션의 첫 페이지와 마지막 페이지 설정.
         $startPage = floor(($page_no-1)/$pagination_range) * $pagination_range + 1;
+            /* if(($page_no % $pagination_range)!=0){
+                $startPage = floor($page_no/$pagination_range) * $pagination_range + 1;
+            }else {
+                $startPage = floor($page_no/$pagination_range) *  $pagination_range + 1 - $pagination_range;
+            } */
             //floor함수는 나눗셈의 몫을 구하는 함수로, 12page에 있을 때, 페이지네이션은 11부터 시작해야 한다.
         $endPage = $startPage+($pagination_range - 1);
         if ($endPage > $total_no_of_pages) {
