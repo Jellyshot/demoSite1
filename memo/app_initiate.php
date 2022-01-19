@@ -26,7 +26,7 @@ if ($conn->query($sql) == TRUE) {
 // 데이터베이스명과 사용자명에 더 많은 유연성을 부여하며
 // 테이블 생성시 데이터베이스 이름을 붙이는 부분을 생략함!!
 // $sql = "CREATE TABLE `toymembership`.`users` (
-  $sql = "CREATE TABLE `notepad` (
+  $sql = "CREATE TABLE `demosite1`.`notepad` (
     `id` INT(8) NOT NULL AUTO_INCREMENT , 
     `username` VARCHAR(24) NOT NULL COMMENT 'user account' , 
     `title` VARCHAR(200) NOT NULL COMMENT 'memo title' , 
@@ -49,6 +49,6 @@ $conn->close();
 // header('Location: index.php');
 // 작업 실행 단계별 메시지 확인을 위해 Confrim and return to back하도록 수정함!!
 // 백그라운드로 처리되도록 할 경우 위 코드로 대체 할 것!!
-echo "<a href='../index.php'>Confirm and Return to back</a>";
+echo "<a href='../board/app_initiate.php'>Confirm and Return to back</a>";
 // ..은 위에, 위에 폴더를 말함
 ?>

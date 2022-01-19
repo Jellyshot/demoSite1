@@ -106,7 +106,7 @@ button{
     width: 80%;
     margin: auto;
 }
-/* 코멘트*/
+/* ---- 코멘트 ---- */
 .commentform{
     width: 100%;
     margin: auto;
@@ -128,4 +128,21 @@ button{
     border-top: 1px solid var(--white-color);
     border-bottom: 1px solid var(--white-color);
     border-collapse: collapse;
+}
+.c_buttons a{
+    text-decoration: none;
+    cursor: pointer;
+    margin: 5px 10px;
+}
+.c_update{
+    display: none;
+}
+.c_update .c_username{
+    border: none;
+    font-size: 14px;
+}
+.c_update .c_contents{
+    width: 70%;
+    font-size: 14px;
+    padding: 5px;
 }

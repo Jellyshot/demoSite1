@@ -12,77 +12,34 @@
 </head>
 
 <body>
+<?php
+    require '../util/dbconfig.php';
+    require_once '../util/loginchk.php';
+    if ($chk_login) {
+?>
     <script defer src="../js/comments_update.js"></script>
-
     <div class="comment_view">
-        <?php
-        $sql = "SELECT * FROM comment WHERE board_id = " . $board_id . " ORDER BY id DESC";
-        $resultset = $conn->query($sql);
-        if (true) {
-        ?>
-            <?php
-            while ($row = $resultset->fetch_assoc()) {
-                $comment_id = $row['id'];
-                $contents = $row['contents'];
-            ?>
-                <div class="default_display" id="comment_default_display<?= $comment_id ?>">
-                    <table>
-                        <tr>
-                            <td><?= $row['c_username'] ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $row['likecnt'] ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $row['contents'] ?></td>
-                        </tr>
-                        <tr>
-                            <td><?= $row['writtendate'] ?></td>
-                        </tr>
-                    </table>
-
-                    <div class="comment_bottom">
-                        <!-- 로그인한 사용자와 작성자가 같으면 수정과 삭제 버튼 활성화 -->
-                        <?php
-                        if ($username == $writer) {
-                        ?>
-                            <a href="./bd_cm_deleteprocess.php?comment_id=<?= $comment_id ?>&board_id=<?= $board_id ?>">삭제</a>
-                            <a onclick='comment_edit(<?= $comment_id ?>)'>수정</a>
-                        <?php
-                        }
-                        ?>
-                        <a href="./bd_cm_likeprocess.php?comment_id=<?= $comment_id ?>&board_id=<?= $board_id ?>">좋아요</a>
-                    </div>
-                </div>
-
-
-                <div class="comment_create default_hide" id="comment_update_display<?= $comment_id ?>">
-                    <form action="./bd_cm_process.php" method="POST">
-                        <input type="hidden" name="board_id" value="<?= $board_id ?>">
-                        <input type="text" name="c_username" value="<?= $username ?>" readonly><br>
-                        <textarea name="description"><?= $contents ?></textarea> <br>
-
-                        <input type=submit value="완료">
-                        <input type=reset value="취소" onclick='comment_edit(<?= $comment_id ?>)'>
-                    </form>
-                    <br>
-                </div>
-
-
-
-            <?php
-            }
-            ?>
-
-
-        <?php
+<?php
+        $board_id = $_POST['board_id'];
+        $co_no = $_POST['co_no'];
+        $co_contents = $_POST['co_contents'];
+        $sql = "UPDATE b_comment SET co_contents = '".$co_contents . "' WHERE co_no = " .$co_no;
+        
+        if( $conn->query($sql) == TRUE ){
+            echo outmsg(UPDATE_SUCCESS);
+            header('Location: ../board/detailview.php?id='.$board_id);
+        }else {
+            echo outmsg(UPDATE_FAIL);
         }
-        ?>
-
-
-
+?>
     </div>
-    </div>
+    <!-- </div> -->
+<?php
+}else {
+    echo outmsg(LOGIN_NEED);
+    echo "<a href='../index.php'>인덱스페이지로</a>";
+    }
+?>
 </body>
 
 </html>

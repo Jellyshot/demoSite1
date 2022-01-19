@@ -32,7 +32,7 @@ require_once './util/loginchk.php';
 
     <!-- Logo, Memga menu's, Introduction Video link, and Login Button -->
     <header>
-        <div class="headeritem"><img src="./img/J_logo-001.png" alt="logo.png"></div>
+        <div class="headeritem logo">Jellyshot</div>
         <div class="headeritem">Megamenu1</div>
         <div class="headeritem">Megamenu2</div>
         <videos></videos>
@@ -43,42 +43,40 @@ require_once './util/loginchk.php';
     <?php
     if (!$chk_login) {  // 로그인 상태가 아니라면
     ?>
-    <ul>
-        <li id='trglgnModal'>login</li>
-        <!-- 여기부터 login modal -->
-        <div id='lgnModal' class='modal'>
-            <!-- loginform in modal -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <form action="./membership/user_loginprocess.php" method="POST" class="loginbox">
-                    <label for="username"><b>Username</b></label><input type="text" name="username" placeholder="Enter Username" required />
-                    <label for="passwd"><b>Password </label><input type="password" name="passwd" placeholder="Enter Password" required />
-                    <button type=submit>Login</button><br>
-                    <label>
-                        <input type="checkbox" value="yes" name="chkbox">Remember me
-                    </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="./membership/user_regist.php">회원가입</a>
-                </form>
+        <ul>
+            <li id='trglgnModal'>login</li>
+            <!-- 여기부터 login modal -->
+            <div id='lgnModal' class='modal'>
+                <!-- loginform in modal -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form action="./membership/user_loginprocess.php" method="POST" class="loginbox">
+                        <label for="username"><b>Username</b></label><input type="text" name="username" placeholder="Enter Username" required />
+                        <label for="passwd"><b>Password </label><input type="password" name="passwd" placeholder="Enter Password" required />
+                        <button type=submit>Login</button><br>
+                        <label>
+                            <input type="checkbox" value="yes" name="chkbox">Remember me
+                        </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="./membership/user_regist.php">회원가입</a>
+                    </form>
+                </div>
+                <!-- loginform in modal 끝 -->
             </div>
-            <!-- loginform in modal 끝 -->
-        </div>
-        <!-- login modal 끝 -->
-    <?php 
+            <!-- login modal 끝 -->
+        <?php
     } else {
         echo $_SESSION['username']; ?>
-        <button?><a href="./membership/user_logout.php">logout</a></button>
+            <button?><a href="./membership/user_logout.php">logout</a></button>
         <?php
-    }
+        }
         ?>
-        
 
-        <!-- -->
+            <!-- -->
         <nav>
-            
-                <li onclick="location.href='./memo/info.php'">Memo</li>
-                <li onclick="location.href='./board/boardlist.php'">Board</li>
-                <li>Blog</li>
-    </ul>
+            <li onclick="location.href='./memo/info.php'">Memo</li>
+            <li onclick="location.href='./board/boardlist.php'">Board</li>
+            <li>Blog</li>
+        </ul>
         </nav>
         <main>
         </main>

@@ -39,6 +39,7 @@ if ($chk_login) {
 
   <body>
     <script defer src="../js/nav.js"></script>
+    <script defer src="../js/comments_update.js"></script>
     <header>
       <div class="topnav">
         <div id="myLinks">
@@ -152,13 +153,14 @@ if ($chk_login) {
     <div class="commentsview">
       <p>전체 댓글 수 &#91;<?= $co_records ?>&#93;</p>
       <ul>
-        <?php
+<?php
         //결과값이 한개 이상일때는 while문을 쓰자.
         while ($row = $co_result->fetch_assoc()) {
           // $row = $co_result->fetch_assoc($co_result);
           // 코멘트의 display box와 none박스를 구별시키기 위해, 또 id 하나당 function 1개 지정을 위해 코멘트의 no값을 불러옴
           $co_no = $row['co_no'];
-        ?>
+          $username = $row['username'];
+?>
           <li class="c_display" id="c_d_display<?=$co_no?>">
             <div class="c_box" style="padding: 5px;">
               <div class="c_info">
@@ -180,27 +182,25 @@ if ($chk_login) {
                 <a onclick="co_function(<?=$co_no?>)">수정</a>
                 <a href="../comment/co_deleteprocess.php?co_no=<?= $row['co_no'] ?>&board_id=<?= $id ?>">삭제</a>
               </div>
-            <?php
-            }
-            ?>
-
+<?php
+}
+?>
           </li>
-
           <li class="c_update" id="c_d_hide<?=$co_no?>">
-            <form action="../comment/comment_update.php">
+            <form action="../comment/comment_update.php" method="POST">
             <input type="hidden" name="board_id" value="<?= $id ?>">
             <input type="hidden" name="co_no" value="<?= $co_no ?>">
-            <input type="text" name="username" value="<?=$username?>">
-            <input type="text" name="co_contents" value="<?=$row['co_contents']?>">
+            <input class="c_username" type="text" name="username" value="<?=$username?>">
+            <input class="c_contents"type="text" name="co_contents" value="<?=$row['co_contents']?>">
             <input type="submit" value="Save">
             <input type="button" value="Cancle" onclick="co_function(<?=$co_no?>)">
-
-
             </form>
           </li>
-        <?php
-      } 
-        ?>
+          
+<?php
+} 
+?>
+      <br>
       </ul>
     </div>
     <br>

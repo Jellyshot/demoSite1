@@ -52,6 +52,8 @@ require "../util/dbconfig.php";
         // pagination을 위한 변수 값 설정
         //한 페이지에 보여줄 리스트 개수
         $total_records_per_page = 10;
+        
+        //offset = 앞에 건너뛸 페이지 수를 말함. ex) 페이지네이션의 시작점을 잡기 위함. 이를 알기 위해서는 페이지 넘버를 알아야 함.
         $offset = ($page_no - 1) * $total_records_per_page;
 
         // 쿼리 실행(전체 페이지 수 계산)
@@ -61,8 +63,10 @@ require "../util/dbconfig.php";
         );
         //$id = $_GET['id'];
         $total_records = mysqli_fetch_array($result_count);
+
         //총 게시물수
         $total_records = $total_records['total_records'];
+
         //총 페이지 수
         $total_no_of_pages = ceil($total_records / $total_records_per_page);
         $previous_page = ($page_no > 10 ? $page_no - 10 : $page_no - 1);

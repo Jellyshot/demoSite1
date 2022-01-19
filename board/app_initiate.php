@@ -40,6 +40,6 @@ $conn->close();
 // header('Location: index.php');
 // 작업 실행 단계별 메시지 확인을 위해 Confrim and return to back하도록 수정함!!
 // 백그라운드로 처리되도록 할 경우 위 코드로 대체 할 것!!
-echo "<a href='./boardlist.php'>Confirm and Return to back</a>";
+echo "<a href='../comment/app_initiate.php'>Confirm and Return to back</a>";
 // ..은 위에, 위에 폴더를 말함
 ?>
