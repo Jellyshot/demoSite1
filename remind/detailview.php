@@ -79,6 +79,8 @@
         <div class="comment_buttons">
         <a href="commentDeleteProcess.php?co_id=<?= $row['co_id'] ?>&emp_id=<?= $id ?>">삭제</a>
         <button class="accordion">수정</button>&nbsp;&nbsp;
+    <!-- 수정버튼을 누르면 보여질 코멘트 수정 부분 -->
+    <!-- 3. 댓글 영역 수정하기 -->
         <form action="commentUpdateProcess.php" method="POST" class="coUpdateForm" id="close">
             <input type="hidden" name="co_id" value="<?= $row['co_id'] ?>" />
             <input type="hidden" name="emp_id" value="<?= $row['emp_id'] ?>" />
@@ -90,11 +92,13 @@
         </div>
     </div>
 
-    <!-- 수정버튼을 누르면 보여질 코멘트 수정 부분 -->
-    <!-- 3. 댓글 영역 수정하기 -->
+
     </div>
 <?php
 }
+    // 4. 리소스 반납.
+    $result->close();
+    $conn->close();
 ?>
     </div>
 <script>
@@ -114,8 +118,9 @@
         })
     }
 // 클로즈 함수 쓰는거 알아두기. 함수 이름을 쓸 때는 전역메서드로 있을법한 이름은 지양하자.
-    let x = document.getElementById("close");
+    
     function myclose() {
+        let x = document.getElementById("close");
         x.style.display = "none";
     }
 
