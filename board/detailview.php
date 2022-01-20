@@ -108,6 +108,8 @@ if ($chk_login) {
       ?>
     </div>
     <br>
+
+    <!-- 로그인한 유저의 댓글에 수정 삭제버튼 만들어 주기 -->
     <?php
         if ($_SESSION['username'] == $row['username']) {
     ?>
@@ -123,6 +125,7 @@ if ($chk_login) {
     <?php
         }
     ?>
+    
     <!-- 여기부터 코멘트 Create form부분!! -->
     <div class="commentform">
       <form action="../comment/comment_write.php" method="POST">

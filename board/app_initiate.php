@@ -24,7 +24,14 @@ if ($conn->query($sql) == TRUE) {
 // 데이터베이스명과 사용자명에 더 많은 유연성을 부여하며
 // 테이블 생성시 데이터베이스 이름을 붙이는 부분을 생략함!!
 // $sql = "CREATE TABLE `toymembership`.`users` (
-$sql = "CREATE TABLE `board` ( `id` INT(8) NOT NULL AUTO_INCREMENT , `username` VARCHAR(24) NOT NULL COMMENT 'user account' , `title` VARCHAR(100) NOT NULL COMMENT 'board title' , `contents` TEXT NOT NULL COMMENT 'board contents' , `wrtime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'wirte time' , `uptime` DATETIME on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'update time' , `hits` INT NOT NULL COMMENT 'notice hits' , `uploadfiles` VARCHAR(200) NULL COMMENT 'attached file name', PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'board CRUD table';";
+$sql = "CREATE TABLE `board` ( 
+  `id` INT(8) NOT NULL AUTO_INCREMENT , 
+  `username` VARCHAR(24) NOT NULL COMMENT 'user account' , 
+  `title` VARCHAR(100) NOT NULL COMMENT 'board title' , `contents` TEXT NOT NULL COMMENT 'board contents' , 
+  `wrtime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'wirte time' , 
+  `uptime` DATETIME on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'update time' , 
+  `hits` INT NOT NULL COMMENT 'notice hits' , 
+  `uploadfiles` VARCHAR(200) NULL COMMENT 'attached file name', PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = 'board CRUD table';";
 
 // 위 질의를 실행하고 실행결과에 따라 성공/실패 메시지 출력
 if ($conn->query($sql) == TRUE) {

@@ -71,6 +71,22 @@
         $stmt->bind_param("ssssss", $emp_name, $emp_num, $emp_phone, $emp_deptcode, $emp_address, $emp_email);
         $stmt->execute();
     }
+
+// 댓글 처리를 위한 테이블 생성
+    //기존 테이블 있는지 확인 후 
+    $sql = "DROP TABLE IF EXISTS 'comment'";
+    $conn->query($sql);
+    //생성 (Foreign key 부분 잘 확인할 것)
+    $sql = "CREATE TABLE IF NOT EXISTS `".$dbname."`.`comment` (
+        `co_id` INT(8) NOT NULL AUTO_INCREMENT , 
+        `emp_id` INT(8) NOT NULL , 
+        `co_writer` VARCHAR(50) NOT NULL , 
+        `co_contents` VARCHAR(600) NOT NULL , 
+        `co_date` DATETIME on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+        PRIMARY KEY (`co_id`)
+        ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci";
+    $conn->query($sql);
+
     $stmt->close();
 
 if ($conn != null) {

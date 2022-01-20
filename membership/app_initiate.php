@@ -45,6 +45,7 @@ if ($conn->query($sql) == TRUE) {
   echo outmsg(CREATETBL_FAIL);
 }
 
+
 // 데이터베이스 연결 인터페이스 리소스를 반납한다.
 $conn->close();
 
